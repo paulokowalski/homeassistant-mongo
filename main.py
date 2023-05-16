@@ -59,7 +59,7 @@ def monitoramento_atualizar():
 
 @app.route('/monitoramento/<sensor>', methods=['DELETE'])
 def monitoramento_deletar(sensor):
-    response = monitoramento_repository.select_many({'data.attributes.rastreio': sensor})
+    response = monitoramento_repository.select_many({'data.attributes.sensor': sensor})
     for elem in response:
         codigo = elem['_id']
         monitoramento_repository.delete_registry({'_id': ObjectId(codigo)})
