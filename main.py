@@ -39,5 +39,31 @@ def correios_deletar(rastreio):
         correios_repository.delete_registry({'_id': ObjectId(codigo)})
     return "ok"
 
+@app.route('/monitoramento', methods=['GET'])
+def monitoramento():
+    return monitoramento_repository.select_many_not_id("")
+
+@app.route('/monitoramento', methods=['POST'])
+def monitoramento_salvar():
+    monitoramento_repository.insert_document(request.json)
+    return "ok"
+
+@app.route('/monitoramento', methods=['PUT'])
+def monitoramento_atualizar():
+    sensor = request.json['data']['attributes']['sensor']
+    response = monitoramento_repository.select_many({'data.attributes.sensor': sensor})
+    for elem in response:
+        codigo = elem['_id']
+        monitoramento_repository.edit_many_registries({'_id': ObjectId(codigo)}, request.json)
+    return "ok"
+
+@app.route('/monitoramento/<sensor>', methods=['DELETE'])
+def monitoramento_deletar(sensor):
+    response = monitoramento_repository.select_many({'data.attributes.rastreio': sensor})
+    for elem in response:
+        codigo = elem['_id']
+        monitoramento_repository.delete_registry({'_id': ObjectId(codigo)})
+    return "ok"
+
 
 app.run(host="192.168.68.125", port=5000)
