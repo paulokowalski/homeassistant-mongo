@@ -1,10 +1,10 @@
 from typing import Dict, List
 
-class CorreiosRepository:
+class Repository:
 
-    def __init__(self, db_connection) -> None:
-        self.__collection_name = "correios"
+    def __init__(self, db_connection, collection_name) -> None:
         self.__db_connection = db_connection
+        self.__collection_name = collection_name
 
     def insert_document(self, document: Dict) -> Dict:
         collection = self.__db_connection.get_collection(self.__collection_name)

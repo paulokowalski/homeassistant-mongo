@@ -2,12 +2,14 @@ from bson.objectid import ObjectId
 from flask import Flask, request
 
 from models.connection_options.connection import DbConnectionHandler
-from models.repository.correios_repository import CorreiosRepository
+from models.repository.repository import Repository
 
 db_handle = DbConnectionHandler()
+collection_name = "correios"
 db_handle.connect_to_db()
 db_connection = db_handle.get_db_connection()
-correios_repository = CorreiosRepository(db_connection)
+correios_repository = Repository(db_connection, "correios")
+monitoramento_repository = Repository(db_connection, "monitoramento")
 
 app = Flask(__name__)
 
