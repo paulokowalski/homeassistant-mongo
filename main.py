@@ -10,6 +10,7 @@ db_handle.connect_to_db()
 db_connection = db_handle.get_db_connection()
 correios_repository = Repository(db_connection, "correios")
 monitoramento_repository = Repository(db_connection, "monitoramento")
+brasileirao_repository = Repository(db_connection, "brasileirao")
 
 app = Flask(__name__)
 
@@ -65,5 +66,24 @@ def monitoramento_deletar(sensor):
         monitoramento_repository.delete_registry({'_id': ObjectId(codigo)})
     return "ok"
 
+@app.route('/brasileirao', methods=['GET'])
+def brasileirao():
+    return brasileirao_repository.select_many_not_id("")
 
-app.run(host="192.168.68.125", port=5000)
+@app.route('/brasileirao', methods=['POST'])
+def brasileirao_salvar():
+    brasileirao_repository.insert_document(request.json)
+    return "ok"
+
+@app.route('/brasileirao', methods=['PUT'])
+def brasileirao_atualizar():
+    rodada = request.json['attributes']['intRound']
+    response = brasileirao_repository.select_many({'attributes.intRound': rodada})
+    print(response)
+    for elem in response:
+        codigo = elem['_id']
+        brasileirao_repository.edit_many_registries({'_id': ObjectId(codigo)}, request.json)
+    return "ok"
+
+
+app.run(host="0.0.0.0")
