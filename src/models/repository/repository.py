@@ -26,8 +26,6 @@ class Repository:
             filter,
             {"_id": 0}
         )
-        #response = []
-        #for elem in list(data): response.append(elem)
         return json.dumps(list(data))
 
     def edit_many_registries(self, filtro, propriedades) -> None:
