@@ -1,5 +1,7 @@
 from typing import Dict, List
-import json
+from flask import jsonify
+from bson import json_util
+
 
 class Repository:
 
@@ -15,18 +17,14 @@ class Repository:
     def select_many(self, filter) -> List[Dict]:
         collection = self.__db_connection.get_collection(self.__collection_name)
         data = collection.find(filter)
-        response = []
-        for elem in data: response.append(elem)
-        return response
+        serialized_data = json_util.dumps(data)
+        return serialized_data, 200
 
-    def select_many_not_id(self, filter) -> List[Dict]:
+    def select_many_not_id(self):
         collection = self.__db_connection.get_collection(self.__collection_name)
-        
-        data = collection.find(
-            filter,
-            {"_id": 0}
-        )
-        return json.dumps(list(data))
+        data = collection.find({})        
+        serialized_data = json_util.dumps(data)
+        return serialized_data, 200
 
     def edit_many_registries(self, filtro, propriedades) -> None:
         collection = self.__db_connection.get_collection(self.__collection_name)

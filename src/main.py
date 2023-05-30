@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 @app.route('/correios', methods=['GET'])
 def correios():
-    return correios_repository.select_many_not_id("")
+    return correios_repository.select_many_not_id()
 
 @app.route('/correios', methods=['POST'])
 def correios_salvar():
@@ -41,7 +41,7 @@ def correios_deletar(rastreio):
 
 @app.route('/monitoramento', methods=['GET'])
 def monitoramento():
-    return monitoramento_repository.select_many_not_id("")
+    return monitoramento_repository.select_many_not_id()
 
 @app.route('/monitoramento', methods=['POST'])
 def monitoramento_salvar():
@@ -67,7 +67,7 @@ def monitoramento_deletar(sensor):
 
 @app.route('/brasileirao', methods=['GET'])
 def brasileirao():
-    return brasileirao_repository.select_many_not_id("")
+    return brasileirao_repository.select_many_not_id()
 
 @app.route('/brasileirao', methods=['POST'])
 def brasileirao_salvar():
