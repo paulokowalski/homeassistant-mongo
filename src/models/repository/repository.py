@@ -17,8 +17,9 @@ class Repository:
     def select_many(self, filter) -> List[Dict]:
         collection = self.__db_connection.get_collection(self.__collection_name)
         data = collection.find(filter)
-        serialized_data = json_util.dumps(data)
-        return serialized_data, 200
+        response = []
+        for elem in data: response.append(elem)
+        return response
 
     def select_many_not_id(self):
         collection = self.__db_connection.get_collection(self.__collection_name)
