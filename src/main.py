@@ -5,7 +5,6 @@ from models.connection_options.connection import DbConnectionHandler
 from models.repository.repository import Repository
 
 db_handle = DbConnectionHandler()
-collection_name = "correios"
 db_handle.connect_to_db()
 db_connection = db_handle.get_db_connection()
 correios_repository = Repository(db_connection, "correios")

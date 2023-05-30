@@ -1,4 +1,5 @@
 from typing import Dict, List
+import json
 
 class Repository:
 
@@ -20,13 +21,14 @@ class Repository:
 
     def select_many_not_id(self, filter) -> List[Dict]:
         collection = self.__db_connection.get_collection(self.__collection_name)
+        
         data = collection.find(
             filter,
             {"_id": 0}
         )
-        response = []
-        for elem in data: response.append(elem)
-        return response
+        #response = []
+        #for elem in list(data): response.append(elem)
+        return json.dumps(list(data))
 
     def edit_many_registries(self, filtro, propriedades) -> None:
         collection = self.__db_connection.get_collection(self.__collection_name)
