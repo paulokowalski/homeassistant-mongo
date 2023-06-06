@@ -82,3 +82,5 @@ def brasileirao_atualizar():
         codigo = elem['_id']
         brasileirao_repository.edit_many_registries({'_id': ObjectId(codigo)}, request.json)
     return "ok"
+
+app.run(host="0.0.0.0")
