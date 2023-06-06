@@ -78,7 +78,6 @@ def brasileirao_salvar():
 def brasileirao_atualizar():
     rodada = request.json['attributes']['intRound']
     response = brasileirao_repository.select_many({'attributes.intRound': rodada})
-    print(response)
     for elem in response:
         codigo = elem['_id']
         brasileirao_repository.edit_many_registries({'_id': ObjectId(codigo)}, request.json)
